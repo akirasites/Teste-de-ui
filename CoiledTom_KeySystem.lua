@@ -1,11 +1,11 @@
 --[[
-    ╔══════════════════════════════════════════════════════════════╗
-    ║                  CoiledTom Key System  v1.0                   ║
-    ║  Painel escuro premium · órbitas · abas · sons · minimizar    ║
-    ╚══════════════════════════════════════════════════════════════╝
+    +==============================================================+
+    |                  CoiledTom Key System  v1.0                   |
+    |  Painel escuro premium - orbitas - abas - sons - minimizar    |
+    +==============================================================+
 
     COMO USAR
-      1. Edite a tabela Config logo abaixo (tudo é configurável ali).
+      1. Edite a tabela Config logo abaixo (tudo e configuravel ali).
       2. Conecte seu validador em Config.Validation (Adapter OU Http.Parse).
       3. Conecte seu script principal em Config.OnExecute.
       4. Rode como LocalScript / no executor.
@@ -16,27 +16,27 @@
       KeySystem.AddCredit({ Name=, Role=, Description=, Image=, Icon=, Link= })
       KeySystem.Destroy()
 
-    NADA aqui é simulado: sem Adapter/endpoint configurado, a Key NUNCA é
-    aceita (a GUI mostra "validador não configurado").
+    NADA aqui e simulado: sem Adapter/endpoint configurado, a Key NUNCA e
+    aceita (a GUI mostra "validador nao configurado").
 ]]
 
--- ════════════════════════════════════════════════════════════════
---  CONFIGURAÇÃO
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  CONFIGURACAO
+-- ================================================================
 local Config = {
 	Name     = "CoiledTom Key System",
-	Subtitle = "Autenticação segura",
+	Subtitle = "Autentica\u{E7}\u{E3}o segura",
 
-	-- Ícone da marca: nome semântico (resolvido via RocketUI Icons) e/ou imagem própria.
+	-- Icone da marca: nome semantico (resolvido via RocketUI Icons) e/ou imagem propria.
 	BrandIcon  = "key",
-	BrandImage = "", -- ex.: "rbxassetid://123..." (opcional; usado também na esfera "GUI")
+	BrandImage = "", -- ex.: "rbxassetid://123..." (opcional; usado tambem na esfera "GUI")
 
 	Colors = {
 		Bg       = Color3.fromHex("07070B"),
-		Panel    = Color3.fromHex("0D0D15"),
-		Card     = Color3.fromHex("14141F"),
-		Field    = Color3.fromHex("0A0A11"),
-		Stroke   = Color3.fromHex("262638"),
+		Panel    = Color3.fromHex("14141F"),
+		Card     = Color3.fromHex("1D1D2C"),
+		Field    = Color3.fromHex("0F0F18"),
+		Stroke   = Color3.fromHex("34344C"),
 		Violet   = Color3.fromHex("8B5CF6"),
 		Purple   = Color3.fromHex("5B21B6"),
 		Electric = Color3.fromHex("A78BFA"),
@@ -49,61 +49,61 @@ local Config = {
 
 	Window = {
 		Width = 460, Height = 350,
-		MinScale = 0.5, MaxScale = 1.15, -- escala responsiva (celular ↔ desktop)
+		MinScale = 0.5, MaxScale = 1.15, -- escala responsiva (celular <-> desktop)
 	},
 
-	-- Execute só aparece após validação real bem-sucedida.
+	-- Execute so aparece apos validacao real bem-sucedida.
 	RequireKeyToExecute = true,
 
-	-- ── Validação ────────────────────────────────────────────────
+	-- -- Validacao ------------------------------------------------
 	Validation = {
 		Timeout = 12,
-		-- OPÇÃO A: função própria. Deve retornar uma tabela:
+		-- OPCAO A: funcao propria. Deve retornar uma tabela:
 		--   { ok = true/false, status = "valid"|"invalid"|"expired"|"error", message = "opcional" }
 		-- Ex.: Adapter = function(key) ... return { ok = true, status = "valid" } end
 		Adapter = nil,
 
-		-- OPÇÃO B: adaptador HTTP genérico (você fornece URL + como montar/ler).
-		-- Nenhum endpoint é presumido. Preencha os 3 campos para ativar.
+		-- OPCAO B: adaptador HTTP generico (voce fornece URL + como montar/ler).
+		-- Nenhum endpoint e presumido. Preencha os 3 campos para ativar.
 		Http = {
-			Url = "",         -- endpoint do SEU provedor (documentação dele)
+			Url = "",         -- endpoint do SEU provedor (documentacao dele)
 			BuildUrl = nil,   -- function(url, key) return string end
 			Parse = nil,      -- function(decodedJson, rawBody) return {ok=,status=,message=} end
 		},
-		-- Panda Auth / outros: mande a documentação oficial do endpoint público
+		-- Panda Auth / outros: mande a documentacao oficial do endpoint publico
 		-- e eu escrevo o Adapter exato. Nunca coloque segredos admin aqui.
 	},
 
-	-- Chamado UMA vez, só depois da animação de Execute. (Fechar com X NÃO chama.)
+	-- Chamado UMA vez, so depois da animacao de Execute. (Fechar com X NAO chama.)
 	OnExecute = function()
 		-- >>> COLOQUE AQUI O SEU SCRIPT PRINCIPAL AUTORIZADO <<<
-		warn("[CoiledTom] OnExecute não configurado.")
+		warn("[CoiledTom] OnExecute n\u{E3}o configurado.")
 	end,
 
-	-- ── Get Key ──────────────────────────────────────────────────
-	-- 1 opção → botão direto · 2+ → dropdown. Sem URLs inventadas.
+	-- -- Get Key --------------------------------------------------
+	-- 1 opcao -> botao direto - 2+ -> dropdown. Sem URLs inventadas.
 	KeyProviders = {
 		-- { Name = "Meu Site",    Url = "https://...", Icon = "link" },
 		-- { Name = "Discord",     Url = "https://...", Icon = "link" },
 		-- { Name = "Linkvertise", Url = "https://...", Icon = "link" },
 	},
 
-	-- ── Esferas orbitais ─────────────────────────────────────────
-	-- Image aceita: "auto:game", "auto:player", "rbxassetid://ID", número, "rbxthumb://..."
+	-- -- Esferas orbitais -----------------------------------------
+	-- Image aceita: "auto:game", "auto:player", "rbxassetid://ID", numero, "rbxthumb://..."
 	Spheres = {
 		{ Name = "Mapa",     Image = "auto:game"   },
 		{ Name = "Jogador",  Image = "auto:player" },
-		{ Name = "GUI",      Image = "",           UseBrand = true }, -- usa BrandImage/ícone
+		{ Name = "GUI",      Image = "",           UseBrand = true }, -- usa BrandImage/icone
 		{ Name = "Executor", Image = "",           Icon = "executor" }, -- coloque a imagem do seu executor
 	},
 
 	Orbit = {
 		BaseSpeed = 0.55,   -- rad/s
 		SphereSize = 48,
-		Gap = 38,           -- distância do painel
-		RingStep = 56,      -- distância entre órbitas
-		PerRing = 6,        -- esferas por órbita antes de abrir outra
-		Squareness = 6,     -- 2 = elipse · maior = mais "quadrada" (acompanha o painel)
+		Gap = 38,           -- distancia do painel
+		RingStep = 56,      -- distancia entre orbitas
+		PerRing = 6,        -- esferas por orbita antes de abrir outra
+		Squareness = 6,     -- 2 = elipse - maior = mais "quadrada" (acompanha o painel)
 		IntroSpread = 0.55, -- raio relativo durante o carregamento
 		MinimizedScale = 0.6,
 		ShowNames = false,
@@ -114,21 +114,27 @@ local Config = {
 		SpinUp = 0.5, Absorb = 0.95, SpeedBoost = 7,
 	},
 
-	-- ── Sons (IDs fornecidos por você; vazio = sem som) ─────────
+	-- -- Sons (IDs fornecidos por voce; vazio = sem som) ---------
 	Audio = {
 		Enabled = true, Volume = 0.5,
 		Sounds = {
-			Open = "", Click = "", DropdownOpen = "", DropdownClose = "",
-			Validate = "", Error = "", Success = "", Execute = "",
-			Close = "", Minimize = "", Restore = "",
+			Open = "98538808688893",          -- open ui e mimizar
+			Click = "", DropdownOpen = "", DropdownClose = "",
+			Validate = "",
+			Error = "88538815117227",         -- notificacao
+			Success = "89614145153902",       -- carregamento concluido-1
+			Execute = "114950758856871",      -- fechamento
+			Close = "104047615825160",        -- fechamento ui
+			Minimize = "98538808688893",      -- open ui e mimizar
+			Restore = "98538808688893",       -- open ui e mimizar
 		},
 	},
 
-	-- ── Ícones (RocketUI) ────────────────────────────────────────
+	-- -- Icones (RocketUI) ----------------------------------------
 	Icons = {
 		Url = "https://raw.githubusercontent.com/CoiledTom/RocketUI/refs/heads/main/Icons.lua",
 		Timeout = 8,
-		-- Mapa semântico → nomes candidatos no Icons.lua. Ajuste se os nomes forem outros.
+		-- Mapa semantico -> nomes candidatos no Icons.lua. Ajuste se os nomes forem outros.
 		Map = {
 			key = { "key", "key-round", "lock-keyhole" },
 			verify = { "shield-check", "badge-check", "circle-check" },
@@ -147,15 +153,15 @@ local Config = {
 		},
 	},
 
-	-- ── Créditos (sem nomes pré-cadastrados) ─────────────────────
+	-- -- Creditos (sem nomes pre-cadastrados) ---------------------
 	Credits = {
 		-- { Name = "Seu Nome", Role = "Owner", Description = "...", Image = "", Icon = "owner", Link = "" },
 	},
 }
 
--- ════════════════════════════════════════════════════════════════
---  SERVIÇOS / UTILIDADES
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  SERVICOS / UTILIDADES
+-- ================================================================
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -172,7 +178,7 @@ local C = Config.Colors
 local W, H = Config.Window.Width, Config.Window.Height
 local BUBBLE = 58
 
--- instância anterior
+-- instancia anterior
 do
 	local env = type(getgenv) == "function" and getgenv() or _G
 	if env.CoiledTomKeySystem and env.CoiledTomKeySystem.Destroy then
@@ -224,10 +230,10 @@ local function text(parent, str, size, color, font, props)
 	return new("TextLabel", p)
 end
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  ESTADO
--- ════════════════════════════════════════════════════════════════
--- Opening · Idle · Validating · Success · Executing · Closing · Closed
+-- ================================================================
+-- Opening - Idle - Validating - Success - Executing - Closing - Closed
 local State = "Opening"
 local Minimized, Busy = false, false
 local KeyValidated = false
@@ -238,9 +244,9 @@ for k, v in pairs({ spread = 0, speed = 1, size = 0, absorb = 0, minimized = 0 }
 	orb[k] = new("NumberValue", { Value = v })
 end
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  ADAPTADOR DE AMBIENTE (isola chamadas de executor)
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local Env = {}
 function Env.parent()
 	if type(gethui) == "function" then
@@ -283,7 +289,7 @@ function Env.clipboardSet(s)
 	if type(fn) == "function" then return (pcall(fn, s)) end
 	return false
 end
--- Retorna true se abriu; "copied" se só copiou; false se nada funcionou.
+-- Retorna true se abriu; "copied" se so copiou; false se nada funcionou.
 function Env.openLink(url)
 	if type(url) ~= "string" or not url:match("^https?://") then return false, "invalid" end
 	if pcall(function() GuiService:OpenBrowserWindow(url) end) then return true end
@@ -291,9 +297,9 @@ function Env.openLink(url)
 	return false, "unsupported"
 end
 
--- ════════════════════════════════════════════════════════════════
---  ÍCONES (RocketUI) — carregamento tolerante a falhas
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  ICONES (RocketUI) - carregamento tolerante a falhas
+-- ================================================================
 local Icons = { raw = nil, idx = {}, ready = false, cache = {} }
 
 local function normImage(v)
@@ -415,9 +421,9 @@ local function setIconColor(c, color, t)
 	if dot then tw(dot, t or 0.2, { BackgroundColor3 = color }) end
 end
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  SONS
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local Sfx = { cache = {} }
 function Sfx.play(name)
 	local A = Config.Audio
@@ -433,24 +439,32 @@ function Sfx.play(name)
 	pcall(function() s.TimePosition = 0; s:Play() end)
 end
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  GUI RAIZ
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local gui = new("ScreenGui", { Name = "CoiledTomKeySystem", ResetOnSpawn = false, IgnoreGuiInset = true,
 	ZIndexBehavior = Enum.ZIndexBehavior.Sibling, DisplayOrder = 999 })
 gui.Parent = Env.parent()
 
--- Esferas ficam atrás do painel
+-- Fundo escurecido durante o carregamento
+local backdrop = new("Frame", { Name = "Backdrop", Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(0, 0, 0),
+	BackgroundTransparency = 1, BorderSizePixel = 0, ZIndex = 0, Parent = gui })
+
+-- Esferas ficam atras do painel
 local sphereLayer = new("Frame", { Name = "Spheres", BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1),
 	ZIndex = 1, Parent = gui })
 
--- ── Painel ──────────────────────────────────────────────────────
+-- -- Painel ------------------------------------------------------
 local panelPos = UDim2.fromScale(0.5, 0.5)
 local panel = new("CanvasGroup", { Name = "Panel", AnchorPoint = Vector2.new(0.5, 0.5), Position = panelPos,
-	Size = UDim2.fromOffset(W, H), BackgroundColor3 = C.Panel, GroupTransparency = 1, ZIndex = 5, Parent = gui })
+	Size = UDim2.fromOffset(W, H), BackgroundTransparency = 1, GroupTransparency = 1, ZIndex = 5, Parent = gui })
 corner(panel, 18)
 stroke(panel, C.Stroke, 1.2, 0)
-gradient(panel, Color3.fromHex("121220"), C.Bg, 90)
+-- fundo com degrade: fica em um Frame filho (nunca UIGradient direto no CanvasGroup)
+local panelBg = new("Frame", { Name = "Bg", Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1),
+	BorderSizePixel = 0, Parent = panel })
+corner(panelBg, 18)
+gradient(panelBg, Color3.fromHex("1E1E30"), Color3.fromHex("12121C"), 90)
 local panelScale = new("UIScale", { Parent = panel })
 local panelAnim = new("NumberValue", { Value = 0.88 })
 local function applyScale() panelScale.Scale = math.max(0.001, baseScale * panelAnim.Value) end
@@ -464,7 +478,7 @@ new("UIGradient", { Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, C.P
 new("UIGradient", { Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 1),
 	NumberSequenceKeypoint.new(0.25, 0), NumberSequenceKeypoint.new(0.75, 0), NumberSequenceKeypoint.new(1, 1) }) , Parent = topLine })
 
--- ── Barra de título ─────────────────────────────────────────────
+-- -- Barra de titulo ---------------------------------------------
 local titleBar = new("Frame", { Size = UDim2.new(1, 0, 0, 54), BackgroundTransparency = 1, Parent = panel })
 
 local brand = new("Frame", { Size = UDim2.fromOffset(34, 34), Position = UDim2.fromOffset(16, 10),
@@ -481,7 +495,7 @@ text(titleBar, Config.Name, 16, C.Text, Enum.Font.GothamBold, { Position = UDim2
 text(titleBar, Config.Subtitle, 12, C.Muted, Enum.Font.Gotham, { Position = UDim2.fromOffset(60, 29),
 	Size = UDim2.new(1, -230, 0, 16), TextTruncate = Enum.TextTruncate.AtEnd })
 
--- botões da barra de título
+-- botoes da barra de titulo
 local function iconButton(parent, iconName, xFromRight, hoverColor)
 	local b = new("TextButton", { Text = "", AutoButtonColor = false, Size = UDim2.fromOffset(34, 34),
 		AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -xFromRight, 0, 10), BackgroundColor3 = C.Card,
@@ -501,7 +515,7 @@ local closeBtn = iconButton(titleBar, "close", 14, C.Error)
 local minBtn = iconButton(titleBar, "minimize", 54)
 local audioBtn, audioIcon = iconButton(titleBar, "audio", 94)
 
--- ── Abas ────────────────────────────────────────────────────────
+-- -- Abas --------------------------------------------------------
 local tabBar = new("Frame", { Position = UDim2.fromOffset(0, 54), Size = UDim2.new(1, 0, 0, 40),
 	BackgroundTransparency = 1, Parent = panel })
 new("Frame", { Position = UDim2.new(0, 16, 1, -1), Size = UDim2.new(1, -32, 0, 1), BackgroundColor3 = C.Stroke,
@@ -560,9 +574,9 @@ end
 for id, t in pairs(tabs) do bind(t.btn.Activated:Connect(function() selectTab(id) end)) end
 setIconColor(tabs.verify.icon, C.Violet, 0)
 
--- ════════════════════════════════════════════════════════════════
---  COMPONENTES: botão, spinner
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  COMPONENTES: botao, spinner
+-- ================================================================
 local function Button(parent, label, iconName, style, size, pos)
 	local primary = style == "primary"
 	local b = new("TextButton", { Text = "", AutoButtonColor = false, Size = size, Position = pos or UDim2.new(),
@@ -603,9 +617,9 @@ local function Spinner(parent, size, color)
 	return f
 end
 
--- ════════════════════════════════════════════════════════════════
---  ABA 1 — VERIFY KEY
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  ABA 1 - VERIFY KEY
+-- ================================================================
 local vp = pages.verify
 local vWrap = new("Frame", { BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), Parent = vp })
 pad(vWrap, 18, 14, 18, 16)
@@ -671,7 +685,7 @@ local function shake(obj)
 end
 setStatus("idle", "Aguardando sua Key.")
 
--- linha de botões
+-- linha de botoes
 local btnRow = new("Frame", { Position = UDim2.fromOffset(0, 108), Size = UDim2.new(1, 0, 0, 46),
 	BackgroundTransparency = 1, Parent = vWrap })
 local verifyBtn, verifyLabel, verifyIcon = Button(btnRow, "Verify Key", "verify", "primary",
@@ -683,7 +697,7 @@ local executeBtn = Button(vWrap, "Execute", "execute", "success", UDim2.new(1, 0
 executeBtn.Visible = false
 local executeScale = executeBtn:FindFirstChildOfClass("UIScale")
 
--- ── Get Key: provider único ou dropdown ─────────────────────────
+-- -- Get Key: provider unico ou dropdown -------------------------
 local Providers = {}
 for _, p in ipairs(Config.KeyProviders) do table.insert(Providers, p) end
 
@@ -703,8 +717,8 @@ local function openProvider(p)
 	local ok, why = Env.openLink(p.Url)
 	if ok == true then setStatus("idle", "Abrindo: " .. p.Name)
 	elseif ok == "copied" then setStatus("success", "Link copiado! Cole no navegador.")
-	elseif why == "invalid" then Sfx.play("Error"); setStatus("error", "URL inválida para \"" .. p.Name .. "\".")
-	else Sfx.play("Error"); setStatus("error", "Este ambiente não consegue abrir links.") end
+	elseif why == "invalid" then Sfx.play("Error"); setStatus("error", "URL inv\u{E1}lida para \"" .. p.Name .. "\".")
+	else Sfx.play("Error"); setStatus("error", "Este ambiente n\u{E3}o consegue abrir links.") end
 end
 
 local rebuildDropdown
@@ -755,16 +769,16 @@ bind(getBtn.Activated:Connect(function()
 	tw(dropdown, 0.22, { GroupTransparency = 0, Position = UDim2.new(1, 0, 0, 100) }, Enum.EasingStyle.Back)
 end))
 
--- ── Validação ───────────────────────────────────────────────────
+-- -- Validacao ---------------------------------------------------
 local Messages = {
 	valid = "Key validada com sucesso!",
-	invalid = "Key inválida. Verifique e tente novamente.",
+	invalid = "Key inv\u{E1}lida. Verifique e tente novamente.",
 	expired = "Esta Key expirou. Obtenha uma nova.",
 	error = "Falha ao validar. Tente novamente.",
 	timeout = "Tempo esgotado ao contatar o verificador.",
-	network = "Erro de rede. Verifique sua conexão.",
-	malformed = "Resposta inválida do verificador.",
-	not_configured = "Validador não configurado pelo proprietário.",
+	network = "Erro de rede. Verifique sua conex\u{E3}o.",
+	malformed = "Resposta inv\u{E1}lida do verificador.",
+	not_configured = "Validador n\u{E3}o configurado pelo propriet\u{E1}rio.",
 }
 
 local function defaultHttpAdapter(key)
@@ -821,7 +835,7 @@ local function verify()
 	tw(verifyBtn, 0.2, { BackgroundTransparency = 0.4 })
 	setStatus("loading", "Validando sua Key...")
 	local res = runValidator(key)
-	if State ~= "Validating" then return end -- fechou durante a validação
+	if State ~= "Validating" then return end -- fechou durante a validacao
 	tw(verifyBtn, 0.2, { BackgroundTransparency = 0 })
 	verifyLabel.Text = "Verify Key"
 	if res.ok and (res.status == nil or res.status == "valid") then
@@ -843,9 +857,9 @@ end
 bind(verifyBtn.Activated:Connect(verify))
 bind(input.FocusLost:Connect(function(enter) if enter then verify() end end))
 
--- ════════════════════════════════════════════════════════════════
---  ABA 2 — PLAYER
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  ABA 2 - PLAYER
+-- ================================================================
 local pp = pages.player
 local pScroll = new("ScrollingFrame", { BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), BorderSizePixel = 0,
 	ScrollBarThickness = 3, ScrollBarImageColor3 = C.Violet, CanvasSize = UDim2.new(),
@@ -878,27 +892,27 @@ local function InfoRow(order, iconName, imageUrl, title)
 	return val, lead
 end
 
-local gameVal = InfoRow(1, "game", ("rbxthumb://type=GameIcon&id=%d&w=150&h=150"):format(game.GameId), "EXPERIÊNCIA")
+local gameVal = InfoRow(1, "game", ("rbxthumb://type=GameIcon&id=%d&w=150&h=150"):format(game.GameId), "EXPERI\u{CA}NCIA")
 local playerVal = InfoRow(2, "player", ("rbxthumb://type=AvatarHeadShot&id=%d&w=150&h=150"):format(LocalPlayer.UserId), "JOGADOR")
 local execVal = InfoRow(3, "executor", nil, "EXECUTOR")
 local fpsVal = InfoRow(4, "fps", nil, "FPS")
 local pingVal = InfoRow(5, "ping", nil, "PING")
 local devVal = InfoRow(6, "device", nil, "ENTRADA / DISPOSITIVO")
 
-playerVal.Text = ("%s  ·  @%s"):format(LocalPlayer.DisplayName, LocalPlayer.Name)
+playerVal.Text = ("%s  \u{B7}  @%s"):format(LocalPlayer.DisplayName, LocalPlayer.Name)
 gameVal.Text = "Carregando..."
 task.spawn(function()
 	local ok, info = pcall(function() return MarketplaceService:GetProductInfo(game.PlaceId) end)
 	gameVal.Text = (ok and info and info.Name) or "N/D"
 end)
-execVal.Text = Env.executor() or "Não detectado"
+execVal.Text = Env.executor() or "N\u{E3}o detectado"
 do
 	local t, k, g = UserInputService.TouchEnabled, UserInputService.KeyboardEnabled, UserInputService.GamepadEnabled
 	devVal.Text = (t and not k) and "Celular / Tablet (toque)" or (g and not k and "Console / Controle")
-		or (k and "Computador (teclado/mouse)") or "Não detectado"
+		or (k and "Computador (teclado/mouse)") or "N\u{E3}o detectado"
 end
 
--- FPS/Ping: leitura espaçada, nunca por frame pesado
+-- FPS/Ping: leitura espacada, nunca por frame pesado
 local frames, fpsClock = 0, os.clock()
 bind(RunService.Heartbeat:Connect(function() frames += 1 end))
 task.spawn(function()
@@ -915,10 +929,10 @@ task.spawn(function()
 	end
 end)
 
--- Áudio
+-- Audio
 do
 	local c = Card(pScroll, 7, 74)
-	text(c, "ÁUDIO", 11, C.Muted, Enum.Font.GothamBold, { Position = UDim2.fromOffset(14, 8), Size = UDim2.new(1, -90, 0, 14) })
+	text(c, "\u{C1}UDIO", 11, C.Muted, Enum.Font.GothamBold, { Position = UDim2.fromOffset(14, 8), Size = UDim2.new(1, -90, 0, 14) })
 	local tg = new("TextButton", { Text = "", AutoButtonColor = false, AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -12, 0, 8),
 		Size = UDim2.fromOffset(44, 24), BackgroundColor3 = Config.Audio.Enabled and C.Violet or C.Field, Parent = c })
 	corner(tg); stroke(tg, C.Stroke, 1, 0.3)
@@ -967,9 +981,9 @@ do
 	end))
 end
 
--- ════════════════════════════════════════════════════════════════
---  ABA 3 — CREDITS
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  ABA 3 - CREDITS
+-- ================================================================
 local cp = pages.credits
 local cScroll = new("ScrollingFrame", { BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), BorderSizePixel = 0,
 	ScrollBarThickness = 3, ScrollBarImageColor3 = C.Violet, CanvasSize = UDim2.new(),
@@ -981,7 +995,7 @@ local Credits = {}
 for _, c in ipairs(Config.Credits) do table.insert(Credits, c) end
 
 local RoleStyle = {
-	owner = { C.Orange, "owner" }, proprietário = { C.Orange, "owner" }, proprietario = { C.Orange, "owner" },
+	owner = { C.Orange, "owner" }, ["propriet\u{E1}rio"] = { C.Orange, "owner" }, proprietario = { C.Orange, "owner" },
 	creator = { C.Violet, "credits" }, criador = { C.Violet, "credits" },
 	developer = { C.Electric, "developer" }, desenvolvedor = { C.Electric, "developer" },
 	admin = { C.Success, "admin" }, administrador = { C.Success, "admin" },
@@ -993,7 +1007,7 @@ local function rebuildCredits()
 	for _, ch in ipairs(cScroll:GetChildren()) do if ch:IsA("Frame") then ch:Destroy() end end
 	if #Credits == 0 then
 		local c = Card(cScroll, 1, 70)
-		text(c, "Nenhum crédito configurado.\nEdite Config.Credits ou use AddCredit().", 13, C.Muted, Enum.Font.Gotham,
+		text(c, "Nenhum cr\u{E9}dito configurado.\nEdite Config.Credits ou use AddCredit().", 13, C.Muted, Enum.Font.Gotham,
 			{ Size = UDim2.fromScale(1, 1), TextXAlignment = Enum.TextXAlignment.Center, TextWrapped = true })
 		return
 	end
@@ -1039,16 +1053,16 @@ local function rebuildCredits()
 				Sfx.play("Click")
 				local ok, why = Env.openLink(cr.Link)
 				if ok == "copied" then setStatus("success", "Link copiado!")
-				elseif not ok then setStatus("error", why == "invalid" and "URL inválida." or "Não foi possível abrir o link.") end
+				elseif not ok then setStatus("error", why == "invalid" and "URL inv\u{E1}lida." or "N\u{E3}o foi poss\u{ED}vel abrir o link.") end
 			end))
 		end
 	end
 end
 rebuildCredits()
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  ESFERAS ORBITAIS
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local Spheres = {}
 local function resolveImage(v)
 	if v == "auto:game" then return ("rbxthumb://type=GameIcon&id=%d&w=150&h=150"):format(game.GameId) end
@@ -1084,7 +1098,7 @@ local function buildSphereGui(s)
 	local img = new("ImageLabel", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5),
 		Size = UDim2.new(1, -6, 1, -6), BackgroundColor3 = C.Field, Image = "", ScaleType = Enum.ScaleType.Crop, Parent = body })
 	corner(img)
-	-- fallback visual (também usado enquanto/por falta de imagem)
+	-- fallback visual (tambem usado enquanto/por falta de imagem)
 	local fb = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1), Visible = false, Parent = img })
 	corner(fb); gradient(fb, C.Violet, C.Purple, 45)
 	local fbIcon = makeIcon(fb, s.Icon or (s.UseBrand and Config.BrandIcon) or "key", 20, C.Text,
@@ -1141,7 +1155,7 @@ else
 	makeIcon(bubble, Config.BrandIcon, 26, C.Text, { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5) })
 end
 
--- Loop da órbita (único loop contínuo da animação)
+-- Loop da orbita (unico loop continuo da animacao)
 local function orbitStep(dt)
 	if State == "Closed" then return end
 	local vpx = gui.AbsoluteSize
@@ -1184,9 +1198,9 @@ end
 bind(gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateScale))
 updateScale()
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  ARRASTAR (mouse e toque)
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local function draggable(handle, getPos, setPos, onTap)
 	local dragging, start, origin, moved = false, nil, nil, 0
 	bind(handle.InputBegan:Connect(function(i)
@@ -1210,7 +1224,7 @@ local function draggable(handle, getPos, setPos, onTap)
 			local p = origin
 			local nx = p.X.Offset + d.X
 			local ny = p.Y.Offset + d.Y
-			-- mantém o centro dentro da tela
+			-- mantem o centro dentro da tela
 			local cx = vpx.X * p.X.Scale + nx
 			local cy = vpx.Y * p.Y.Scale + ny
 			nx += math.clamp(cx, 20, vpx.X - 20) - cx
@@ -1221,9 +1235,9 @@ local function draggable(handle, getPos, setPos, onTap)
 end
 draggable(titleBar, function() return panelPos end, function(p) panelPos = p; panel.Position = p end)
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  MINIMIZAR / RESTAURAR
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local function minimize()
 	if Busy or Minimized or (State ~= "Idle" and State ~= "Success" and State ~= "Validating") then return end
 	Busy = true; Minimized = true
@@ -1256,9 +1270,9 @@ end
 bind(minBtn.Activated:Connect(minimize))
 draggable(bubble, function() return bubble.Position end, function(p) bubble.Position = p; bubblePos = p end, restore)
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  ABERTURA
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local T = Config.Timings
 local function openSequence()
 	State = "Opening"
@@ -1267,22 +1281,26 @@ local function openSequence()
 	panelAnim.Value = 0.88
 	panel.Position = UDim2.new(panelPos.X.Scale, panelPos.X.Offset, panelPos.Y.Scale, panelPos.Y.Offset + 18)
 
-	-- barra de carregamento (representa a preparação da UI, não a validação)
+	-- barra de carregamento (representa a preparacao da UI, nao a validacao)
 	local bar = new("CanvasGroup", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.fromOffset(250, 44), BackgroundTransparency = 1, GroupTransparency = 1, ZIndex = 6, Parent = gui })
-	local barText = text(bar, "Preparando interface...", 13, C.Text, Enum.Font.GothamMedium,
-		{ Size = UDim2.new(1, 0, 0, 18), TextXAlignment = Enum.TextXAlignment.Center })
-	local track = new("Frame", { Position = UDim2.fromOffset(0, 28), Size = UDim2.new(1, 0, 0, 6), BackgroundColor3 = C.Card, Parent = bar })
+		Size = UDim2.fromOffset(290, 78), BackgroundColor3 = C.Panel, BackgroundTransparency = 0.05,
+		GroupTransparency = 1, ZIndex = 6, Parent = gui })
+	corner(bar, 16); stroke(bar, C.Violet, 1.2, 0.45)
+	local barText = text(bar, "Preparando interface...", 14, C.Text, Enum.Font.GothamMedium,
+		{ Position = UDim2.fromOffset(0, 16), Size = UDim2.new(1, 0, 0, 18), TextXAlignment = Enum.TextXAlignment.Center })
+	local track = new("Frame", { Position = UDim2.fromOffset(20, 48), Size = UDim2.new(1, -40, 0, 8), BackgroundColor3 = C.Field, Parent = bar })
 	corner(track); stroke(track, C.Stroke, 1, 0.3)
 	local fill = new("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = Color3.new(1, 1, 1), Parent = track })
 	corner(fill); gradient(fill, C.Violet, C.Orange, 0)
 
-	-- 1-2: das posições centrais para a órbita inicial
+	tw(backdrop, 0.5, { BackgroundTransparency = 0.4 }) -- tela de carregamento meio escura
+
+	-- 1-2: das posicoes centrais para a orbita inicial
 	tw(orb.size, T.Burst, { Value = 1 }, Enum.EasingStyle.Back)
 	tw(orb.spread, T.Burst, { Value = Config.Orbit.IntroSpread }, Enum.EasingStyle.Back)
 	task.wait(T.Burst * 0.7)
 
-	-- 3: carregamento real (ícones + imagens) em paralelo à barra
+	-- 3: carregamento real (icones + imagens) em paralelo a barra
 	local loaded = false
 	task.spawn(function()
 		Icons.load()
@@ -1308,18 +1326,19 @@ local function openSequence()
 	twWait(orb.spread, T.Converge, { Value = 0.02 }, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
 	bar:Destroy()
 
-	-- 5-6: expandem para a órbita final enquanto o painel é revelado
+	-- 5-6: expandem para a orbita final enquanto o painel e revelado
 	tw(orb.spread, T.Expand, { Value = 1 }, Enum.EasingStyle.Back)
 	task.wait(T.Expand * 0.35)
+	tw(backdrop, T.Reveal + 0.2, { BackgroundTransparency = 1 })
 	tw(panel, T.Reveal, { GroupTransparency = 0, Position = panelPos }, Enum.EasingStyle.Quint)
 	tw(panelAnim, T.Reveal, { Value = 1 }, Enum.EasingStyle.Back)
 	task.wait(T.Reveal)
-	State = "Idle" -- 7: a órbita continua no RenderStepped
+	State = "Idle" -- 7: a orbita continua no RenderStepped
 end
 
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 --  FECHAR / EXECUTAR
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
 local API = {}
 local function destroy()
 	State = "Closed"
@@ -1339,21 +1358,21 @@ local function closeSequence(execute)
 	closeDropdown(true)
 	Sfx.play(execute and "Execute" or "Close")
 
-	-- se estiver minimizado (não ocorre pela UI, mas por segurança)
+	-- se estiver minimizado (nao ocorre pela UI, mas por seguranca)
 	if Minimized then bubble.Visible = false end
 
 	-- 1-2: acelera e entra em espiral
 	tw(orb.speed, T.SpinUp + T.Absorb * 0.5, { Value = T.SpeedBoost }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 	task.wait(T.SpinUp)
 
-	-- núcleo de energia (para onde tudo é absorvido)
+	-- nucleo de energia (para onde tudo e absorvido)
 	local vpx = gui.AbsoluteSize
 	local center = posToPx(panelPos, vpx)
 	local core = new("Frame", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromOffset(center.X, center.Y),
 		Size = UDim2.fromOffset(0, 0), BackgroundColor3 = Color3.new(1, 1, 1), ZIndex = 9, Parent = gui })
 	corner(core); gradient(core, C.Electric, C.Violet, 45); stroke(core, C.Orange, 2, 0.1)
 
-	-- 3-4: esferas encolhem e o painel é absorvido
+	-- 3-4: esferas encolhem e o painel e absorvido
 	tw(orb.absorb, T.Absorb, { Value = 1 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 	task.delay(T.Absorb * 0.15, function()
 		tw(panel, T.Absorb * 0.8, { GroupTransparency = 1 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
@@ -1365,7 +1384,7 @@ local function closeSequence(execute)
 	task.wait(T.Absorb)
 	twWait(core, 0.25, { Size = UDim2.fromOffset(0, 0), BackgroundTransparency = 1 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 
-	-- 5-6: finaliza; só Execute chama o callback (uma vez)
+	-- 5-6: finaliza; so Execute chama o callback (uma vez)
 	local callback = Config.OnExecute
 	destroy()
 	if execute and type(callback) == "function" then
@@ -1379,9 +1398,9 @@ end
 bind(closeBtn.Activated:Connect(function() closeSequence(false) end))
 bind(executeBtn.Activated:Connect(function() closeSequence(true) end))
 
--- ════════════════════════════════════════════════════════════════
---  API PÚBLICA
--- ════════════════════════════════════════════════════════════════
+-- ================================================================
+--  API PUBLICA
+-- ================================================================
 API.AddSphere = addSphere
 function API.AddKeyProvider(p)
 	if type(p) ~= "table" or not p.Name or not p.Url then warn("[CoiledTom] AddKeyProvider: precisa de Name e Url"); return end
