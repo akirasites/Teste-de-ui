@@ -107,6 +107,7 @@ local Config = {
 		IntroSpread = 0.55, -- raio relativo durante o carregamento
 		MinimizedScale = 0.6,
 		ShowNames = false,
+		BorderThickness = 1, -- espessura do contorno das esferas (px)
 	},
 
 	Timings = {
@@ -459,11 +460,11 @@ local panelPos = UDim2.fromScale(0.5, 0.5)
 local panel = new("CanvasGroup", { Name = "Panel", AnchorPoint = Vector2.new(0.5, 0.5), Position = panelPos,
 	Size = UDim2.fromOffset(W, H), BackgroundTransparency = 1, GroupTransparency = 1, ZIndex = 5, Parent = gui })
 corner(panel, 18)
-stroke(panel, C.Stroke, 1.2, 0)
 -- fundo com degrade: fica em um Frame filho (nunca UIGradient direto no CanvasGroup)
 local panelBg = new("Frame", { Name = "Bg", Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1),
 	BorderSizePixel = 0, Parent = panel })
 corner(panelBg, 18)
+stroke(panelBg, C.Stroke, 2.4, 0) -- dentro do grupo: some junto com o fade (metade interna fica visivel)
 gradient(panelBg, Color3.fromHex("1E1E30"), Color3.fromHex("12121C"), 90)
 local panelScale = new("UIScale", { Parent = panel })
 local panelAnim = new("NumberValue", { Value = 0.88 })
@@ -564,7 +565,7 @@ local function selectTab(id)
 		tw(t.label, 0.2, { TextColor3 = on and C.Text or C.Muted })
 		setIconColor(t.icon, on and C.Violet or C.Muted, 0.2)
 	end
-	tw(indicator, 0.35, { Position = UDim2.fromScale((tabs[id].index - 1), 0) }, Enum.EasingStyle.Back)
+	tw(indicator, 0.35, { Position = UDim2.fromScale((tabs[id].index - 1) / 3, 0) }, Enum.EasingStyle.Back)
 	local po, pn = pages[old], pages[new_]
 	tw(po, 0.18, { GroupTransparency = 1, Position = UDim2.fromOffset(-18 * dirn, 0) })
 	task.delay(0.18, function() if activeTab ~= old then po.Visible = false end end)
@@ -1093,10 +1094,10 @@ local function buildSphereGui(s)
 	corner(glow)
 	local body = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = C.Panel, Parent = holder })
 	corner(body)
-	local st = stroke(body, Color3.new(1, 1, 1), 2, 0)
+	local st = stroke(body, Color3.new(1, 1, 1), Config.Orbit.BorderThickness, 0)
 	new("UIGradient", { Color = ColorSequence.new(s.BorderColor or C.Violet, C.Orange), Rotation = 45, Parent = st })
 	local img = new("ImageLabel", { AnchorPoint = Vector2.new(0.5, 0.5), Position = UDim2.fromScale(0.5, 0.5),
-		Size = UDim2.new(1, -6, 1, -6), BackgroundColor3 = C.Field, Image = "", ScaleType = Enum.ScaleType.Crop, Parent = body })
+		Size = UDim2.new(1, -4, 1, -4), BackgroundColor3 = C.Field, Image = "", ScaleType = Enum.ScaleType.Crop, Parent = body })
 	corner(img)
 	-- fallback visual (tambem usado enquanto/por falta de imagem)
 	local fb = new("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = Color3.new(1, 1, 1), Visible = false, Parent = img })
